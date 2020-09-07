@@ -1,12 +1,18 @@
-import { useParams } from "blitz"
+import { useParams, useQuery } from "blitz"
+import getPost from "../../posts/queries/getPost"
 
-const Post = () => {
-  const params = useParams()
-  return (
-    <div>
-      <h1>Post: {params.slug}</h1>
-    </div>
-  )
+const PostPage = () => {
+  try {
+    const [post] = useQuery(getPost, { where: { id: 1 } })
+    return (
+      <div>
+        <h1>Post:{post.title}</h1>
+      </div>
+    )
+  } catch (e) {
+    console.log(e)
+  }
+  return null
 }
 
-export default Post
+export default PostPage
